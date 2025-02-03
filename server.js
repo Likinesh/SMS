@@ -5,9 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const port = process.env.port || 3000
 
-// Middleware
-// app.use(morgan('dev'));
-
 const server = http.createServer(app);
 
 server.listen(port,()=>{

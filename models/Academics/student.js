@@ -19,8 +19,8 @@ const Student_schema = new mongoose.Schema({
         required:true,
         default:function(){
             return (
-                "MNNIT"+Math.floor(100+Math.random()*900)+Date.now().toString().slice(2,4)+
-            this.name.split('').map(name=> name[0]).join('').toUpperCase()
+                "S"+Math.floor(100+Math.random()*900)+Date.now().toString().slice(2,4)+
+            this.name.splite('').map(name=> name[0]).join('').toUpperCase()
             )
         }
     },
