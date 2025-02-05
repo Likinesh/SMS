@@ -1,0 +1,2 @@
+1.Middleware are functions that have access to req and res object
+2.This is used to modify req and res obj before they pass to next middleware

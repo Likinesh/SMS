@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs'
 
 const staff_schema = new mongoose.Schema({
     name:{
@@ -22,5 +23,23 @@ const staff_schema = new mongoose.Schema({
     timestamps:true
 });
 
-const Staff_model = mongoose.model('Staff',staff_schema);
-export default Staff_model
+// Hash Password
+staff_schema.pre("save",async function(next){
+
+    if(!this.isModified('password')){
+        next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password,salt);
+    next();
+})
+
+//decrypt
+staff_schema.methods.verifyPassword = async function (password) {
+    return await bcrypt.compare(password,this.password);
+}
+
+
+const Admin = mongoose.model('Admin',staff_schema);
+export default Admin
