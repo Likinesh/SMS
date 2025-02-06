@@ -16,29 +16,42 @@ const staff_schema = new mongoose.Schema({
     },
     role:{
         type:String,
-        default:'Admin'
+        default:'admin'
     },
+    academicTerms:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"AcademicTerm",
+        }
+    ],
+    academicYears:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"AcademicYear",
+        }
+    ],
+    classLevels:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"ClassLevel",
+        }
+    ],
+    professor:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Professors",
+        }
+    ],
+    students:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Students",
+        }
+    ],
 },
 {
     timestamps:true
 });
-
-// Hash Password
-staff_schema.pre("save",async function(next){
-
-    if(!this.isModified('password')){
-        next();
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password,salt);
-    next();
-})
-
-//decrypt
-staff_schema.methods.verifyPassword = async function (password) {
-    return await bcrypt.compare(password,this.password);
-}
 
 
 const Admin = mongoose.model('Admin',staff_schema);

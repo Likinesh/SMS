@@ -13,3 +13,15 @@ export const isLogin = async (req,res,next) =>{
         next(err);
     }
 }
+
+export const isAdmin = async (req,res,next)=>{
+    const userId = req.userAuth._id;
+    const adminexist = Admin.findById(userId);
+    if(adminexist.role === 'admin'){
+        next();
+    } 
+    else{
+        const err = new Error("Access Denied");
+        next(err);
+    }
+}

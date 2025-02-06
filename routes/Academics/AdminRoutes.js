@@ -1,6 +1,6 @@
 import express from 'express'
 import { deleteAdmin, getAdminById, getAllAdmin, login, publishExam, register, suspendProf, unpublishExam, unsuspendProf, unwithdrawProf, updateAdmin, withdrawProf } from '../../controller/Academics/adminController.js';
-import { isLogin } from '../../middleware/IsLogin.js';
+import { isAdmin, isLogin } from '../../middleware/Validate.js';
 
 const AdminRouter = express.Router();
 
@@ -10,9 +10,9 @@ AdminRouter.post('/login',login)
 
 AdminRouter.get('/All',isLogin,getAllAdmin)
 
-AdminRouter.get('/:id',isLogin,getAdminById)
+AdminRouter.get('/:id',isLogin,isAdmin,getAdminById)
 
-AdminRouter.put('/:id',isLogin,updateAdmin)
+AdminRouter.put('/:id',isLogin,isAdmin,updateAdmin)
 
 AdminRouter.delete('/:id',isLogin,deleteAdmin)
 
