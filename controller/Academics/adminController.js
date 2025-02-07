@@ -43,7 +43,7 @@ export const getAllAdmin = (req,res)=>{
 
 export const getAdminById = AsyncHandler(async (req,res)=>{
     const id = req.userAuth._id;
-    const admin = await Admin.findById(id).select("name email role");
+    const admin = await Admin.findById(id).select("name email role").populate('academicYears');
     if(!admin){
         throw new Error('Admin Not Found');
     }
